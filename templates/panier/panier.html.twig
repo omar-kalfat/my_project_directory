@@ -1,0 +1,6 @@
+   {% for voucher in  app.session.get('cart') %}
+        {{voucher.id}}
+        {{voucher.type}}
+        {{voucher.amount}}
+ {% endfor %}
+

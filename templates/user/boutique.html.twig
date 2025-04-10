@@ -1,0 +1,41 @@
+{% extends 'user-base.html.twig' %}
+
+
+{% block title %}Boutique{% endblock %}
+
+{% block body %}
+<h1>Boutique</h1>
+
+<h2>Cartes Cadeaux</h2>
+<div>
+    {% for giftCard in giftCards %}
+        <div>
+            <h3>{{ giftCard.code }} - {{ giftCard.amount }}€</h3>
+            <a href="{{ path('app_add_to_cart', {'id': giftCard.id, 'type': 'carte','amount':giftCard.amount}) }}" class="btn btn-primary">Ajouter au panier</a>
+        </div>
+    {% else %}
+        <p>Aucune carte cadeau disponible.</p>
+    {% endfor %}
+</div>
+
+<h2>Codes Promo</h2>
+<div>
+
+    {% for promoCode in promoCodes %}
+        <div>
+            <h3>{{ promoCode.code }} - Réduction de {{ promoCode.reduction }}€</h3>
+            <a href="{{ path('app_add_to_cart', {'id': promoCode.id, 'type': 'promo','amount':promoCode.reduction}) }}" class="btn btn-primary">Ajouter au panier</a>
+        </div>
+    {% else %}
+        <p>Aucun code promo disponible.</p>
+    {% endfor %}
+</div>
+
+    {% for voucher in  app.session.get('cart') %}
+        {{voucher.id}}
+        {{voucher.type}}
+        {{voucher.amount}}
+
+{% endfor %}
+
+{% endblock %}

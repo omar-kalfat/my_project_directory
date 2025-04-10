@@ -1,0 +1,20 @@
+doctrine:
+    dbal:
+        url: '%env(DATABASE_URL)%'
+        charset: utf8mb4
+        dbname: 'ecommerce'
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: false # Disable auto_mapping and define mappings explicitly
+        mappings:
+            App:
+                is_bundle: false
+                type: attribute # Use "attribute" for PHP 8 attributes
+                dir: '%kernel.project_dir%/src/Entity' # Directory where your entities are located
+                prefix: 'App\Entity' # Namespace prefix for your entities
+                alias: App # Optional alias for the mapping

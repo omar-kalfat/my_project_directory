@@ -1,0 +1,42 @@
+security:
+    # Hachage des mots de passe
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
+    # Fournisseurs d'utilisateurs
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+
+    # Pare-feux (firewalls)
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            lazy: true
+            provider: app_user_provider
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                default_target_path: app_admin
+                enable_csrf: true
+            logout:
+                path: app_logout
+                target: app_boutique
+            entry_point: App\Security\UsersAuthenticator # Point d'entrée pour les utilisateurs non authentifiés
+
+    # Contrôle d'accès
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN } # Seuls les administrateurs peuvent accéder à /admin
+        - { path: ^/profile, roles: ROLE_USER } # Seuls les utilisateurs connectés peuvent accéder à /profile
+        - { path: ^/login, roles: PUBLIC_ACCESS } # La page de connexion est accessible à tous
+        - { path: ^/register, roles: PUBLIC_ACCESS } # La page d'inscription est accessible à tous
+        - { path: ^/, roles: PUBLIC_ACCESS } # La page d'accueil est accessible à tous
+
+    # Hiérarchie des rôles
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER # Un administrateur a également les droits d'un utilisateur standard

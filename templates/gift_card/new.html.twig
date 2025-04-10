@@ -1,0 +1,11 @@
+{% extends 'admin-base.html.twig' %}
+
+{% block title %}New GiftCard{% endblock %}
+
+{% block body %}
+    <h1>Create new GiftCard</h1>
+
+    {{ include('gift_card/_form.html.twig') }}
+
+    <a href="{{ path('app_gift_card_index') }}">back to list</a>
+{% endblock %}

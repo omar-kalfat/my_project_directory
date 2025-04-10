@@ -1,0 +1,44 @@
+{% extends 'admin-base.html.twig' %}
+
+{% block title %}PromoCode index{% endblock %}
+
+{% block body %}
+    <h1>PromoCode index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Reduction</th>
+                <th>Expirydate</th>
+                <th>merchant</th>
+                 <th>actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for promo_code in promo_codes %}
+            <tr>
+                <td>{{ promo_code.id }}</td>
+                <td>{{ promo_code.code }}</td>
+                <td>{{ promo_code.reduction }}</td>
+                <td>{{ promo_code.expirydate ? promo_code.expirydate|date('Y-m-d H:i:s') : '' }}</td>
+             {#   <td>{{ (promo_code.merchantId.name) }}</td>
+#}
+                <td>
+                    <a href="{{ path('app_promo_code_show', {'id': promo_code.id}) }}">show</a>
+                    <a href="{{ path('app_promo_code_edit', {'id': promo_code.id}) }}">edit</a>
+                </td>
+            </tr>
+            
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_promo_code_new') }}">Create new</a>
+{% endblock %}

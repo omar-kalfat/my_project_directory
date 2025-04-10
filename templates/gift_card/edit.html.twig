@@ -1,0 +1,13 @@
+{% extends 'admin-base.html.twig' %}
+
+{% block title %}Edit GiftCard{% endblock %}
+
+{% block body %}
+    <h1>Edit GiftCard</h1>
+
+    {{ include('gift_card/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_gift_card_index') }}">back to list</a>
+
+    {{ include('gift_card/_delete_form.html.twig') }}
+{% endblock %}
